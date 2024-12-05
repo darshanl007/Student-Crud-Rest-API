@@ -1,5 +1,7 @@
 package org.dars.student_crud.controller;
 
+import java.util.List;
+
 import org.dars.student_crud.dto.Student;
 import org.dars.student_crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,11 @@ public class StudentController {
 	@PostMapping("/students")
 	public ResponseEntity<Object> saveStudent(@RequestBody Student student) {
 		return service.save(student);
+	}
+
+	// Adding multiple student records
+	@PostMapping("/students/multiple")
+	public ResponseEntity<Object> saveStudent(@RequestBody List<Student> students) {
+		return service.save(students);
 	}
 }

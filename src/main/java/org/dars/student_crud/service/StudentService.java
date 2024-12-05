@@ -1,6 +1,7 @@
 package org.dars.student_crud.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.dars.student_crud.dto.Student;
@@ -22,13 +23,30 @@ public class StudentService {
 			map.put("error", "Mobile Number Already Exists");
 			return new ResponseEntity<Object>(map, HttpStatus.UNPROCESSABLE_ENTITY);
 		} else {
-			student.setPercentage((student.getMaths()+student.getScience()+student.getSocial())/3.0);
+			student.setPercentage((student.getMaths() + student.getScience() + student.getSocial()) / 3.0);
 			repository.save(student);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Added Success");
 			map.put("data", student);
-			return new ResponseEntity<Object>(map,HttpStatus.CREATED);
+			return new ResponseEntity<Object>(map, HttpStatus.CREATED);
 		}
+	}
+
+	public ResponseEntity<Object> save(List<Student> students) {
+		for (Student student : students) {
+			if (repository.existsByMobile(student.getMobile())) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("error", "Mobile Number Already Exists");
+				return new ResponseEntity<Object>(map, HttpStatus.UNPROCESSABLE_ENTITY);
+			} else {
+				student.setPercentage((student.getMaths() + student.getScience() + student.getSocial()) / 3.0);
+			}
+		}
+		repository.saveAll(students);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", "Multiple Record Saved Success");
+		map.put("data", students);
+		return new ResponseEntity<Object>(map, HttpStatus.CREATED);
 	}
 
 }
