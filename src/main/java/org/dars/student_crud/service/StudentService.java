@@ -130,4 +130,17 @@ public class StudentService {
 		}
 	}
 
+	public ResponseEntity<Object> delete(int id) {
+		if (repository.findById(id).isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Record Present with Id : " + id);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			repository.deleteById(id);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Deleted Success");
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		}
+	}
+
 }
