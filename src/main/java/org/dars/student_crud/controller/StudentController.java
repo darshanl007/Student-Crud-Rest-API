@@ -1,10 +1,24 @@
 package org.dars.student_crud.controller;
 
+import org.dars.student_crud.dto.Student;
+import org.dars.student_crud.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
 public class StudentController {
-	
+
+	@Autowired
+	StudentService service;
+
+	// Adding one student record
+	@PostMapping("/students")
+	public ResponseEntity<Object> saveStudent(@RequestBody Student student) {
+		return service.save(student);
+	}
 }
