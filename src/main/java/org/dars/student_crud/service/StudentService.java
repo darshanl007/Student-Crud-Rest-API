@@ -1,5 +1,6 @@
 package org.dars.student_crud.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +104,29 @@ public class StudentService {
 			map.put("message", "Record Found Success");
 			map.put("data", optional.get());
 			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+		}
+	}
+
+	public ResponseEntity<Object> fetchByResult(String result) {
+		List<Student> students = new ArrayList<Student>();
+		if (result.equalsIgnoreCase("distinction"))
+			students = repository.findByPercentageGreaterThanEqualAndPercentageLessThan(85, 101);
+		else if (result.equalsIgnoreCase("first class"))
+			students = repository.findByPercentageGreaterThanEqualAndPercentageLessThan(60, 85);
+		else if (result.equalsIgnoreCase("second class"))
+			students = repository.findByPercentageGreaterThanEqualAndPercentageLessThan(35, 60);
+		else if (result.equalsIgnoreCase("fail"))
+			students = repository.findByPercentageGreaterThanEqualAndPercentageLessThan(0, 35);
+
+		if (students.isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Record with Result : " + result);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Found Success");
+			map.put("data", students);
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
 		}
 	}
 

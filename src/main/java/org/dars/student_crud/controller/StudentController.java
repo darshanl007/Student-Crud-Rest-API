@@ -56,4 +56,10 @@ public class StudentController {
 		return service.fetchByMobile(mobile);
 	}
 
+	// Fetch By Result
+	@GetMapping("/students/result/{result}")
+	public ResponseEntity<Object> fetchByResult(@PathVariable String result) {
+		return service.fetchByResult(result);
+	}
+
 }
