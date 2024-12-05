@@ -92,4 +92,18 @@ public class StudentService {
 		}
 	}
 
+	public ResponseEntity<Object> fetchByMobile(long mobile) {
+		Optional<Student> optional = repository.findByMobile(mobile);
+		if (optional.isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Records Found By Mobile No : " + mobile);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Found Success");
+			map.put("data", optional.get());
+			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+		}
+	}
+
 }
