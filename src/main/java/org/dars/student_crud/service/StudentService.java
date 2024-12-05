@@ -49,4 +49,18 @@ public class StudentService {
 		return new ResponseEntity<Object>(map, HttpStatus.CREATED);
 	}
 
+	public ResponseEntity<Object> fetchAll() {
+		List<Student> students = repository.findAll();
+		if (students.isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Data Present in Database");
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Found Success");
+			map.put("data", students);
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		}
+	}
+
 }

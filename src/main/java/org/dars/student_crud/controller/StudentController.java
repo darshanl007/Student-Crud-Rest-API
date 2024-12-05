@@ -6,6 +6,7 @@ import org.dars.student_crud.dto.Student;
 import org.dars.student_crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,11 @@ public class StudentController {
 	@PostMapping("/students/multiple")
 	public ResponseEntity<Object> saveStudent(@RequestBody List<Student> students) {
 		return service.save(students);
+	}
+	
+	//Fetch All Records
+	@GetMapping("/students")
+	public ResponseEntity<Object> fetchStudents(){
+		return service.fetchAll();
 	}
 }
