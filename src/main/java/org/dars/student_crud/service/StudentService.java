@@ -3,6 +3,7 @@ package org.dars.student_crud.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.dars.student_crud.dto.Student;
 import org.dars.student_crud.repository.StudentRepository;
@@ -59,6 +60,20 @@ public class StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Found Success");
 			map.put("data", students);
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		}
+	}
+
+	public ResponseEntity<Object> fetchById(int id) {
+		Optional<Student> optional = repository.findById(id);
+		if (optional.isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Record Found with Id : " + id);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Found Success");
+			map.put("data", optional.get());
 			return new ResponseEntity<Object>(map, HttpStatus.OK);
 		}
 	}
