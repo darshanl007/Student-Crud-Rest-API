@@ -44,4 +44,10 @@ public class StudentController {
 		return service.fetchById(id);
 	}
 
+	// Fetch By Name
+	@GetMapping("/students/name/{name}")
+	public ResponseEntity<Object> fetchByName(@PathVariable String name) {
+		return service.fetchByName(name);
+	}
+
 }

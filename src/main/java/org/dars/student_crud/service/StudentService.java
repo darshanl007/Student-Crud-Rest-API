@@ -78,4 +78,18 @@ public class StudentService {
 		}
 	}
 
+	public ResponseEntity<Object> fetchByName(String name) {
+		Optional<Student> optional = repository.findByName(name);
+		if (optional.isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Record Found By Name : " + name);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Found Success");
+			map.put("data", optional.get());
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		}
+	}
+
 }
