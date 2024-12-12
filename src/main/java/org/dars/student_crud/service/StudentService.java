@@ -61,7 +61,7 @@ public class StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Found Success");
 			map.put("data", students);
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Found Success");
 			map.put("data", optional.get());
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Found Success");
 			map.put("data", optional.get());
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class StudentService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("message", "Record Found Success");
 			map.put("data", students);
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			return new ResponseEntity<Object>(map, HttpStatus.FOUND);
 		}
 	}
 
