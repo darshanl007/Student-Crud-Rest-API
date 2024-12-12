@@ -143,4 +143,40 @@ public class StudentService {
 		}
 	}
 
+	public ResponseEntity<Object> update(Student student) {
+		student.setPercentage((student.getScience() + student.getMaths() + student.getSocial()) / 3.0);
+		repository.save(student);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", "Record Updated Success");
+		return new ResponseEntity<Object>(map, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> update(Student student, int id) {
+		if (repository.findById(id).isEmpty()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error", "No Data Present with Id: " + id);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+		} else {
+			Student student1 = repository.findById(id).get();
+			if (student.getName() != null)
+				student1.setName(student.getName());
+			if (student.getScience() != 0)
+				student1.setScience(student.getScience());
+			if (student.getMaths() != 0)
+				student1.setMaths(student.getMaths());
+			if (student.getSocial() != 0)
+				student1.setSocial(student.getSocial());
+			if (student.getStandard() != 0)
+				student1.setStandard(student.getStandard());
+			if (student.getMobile() != 0)
+				student1.setMobile(student.getMobile());
+			student1.setPercentage((student.getScience() + student.getMaths() + student.getSocial()) / 3.0);
+
+			repository.save(student1);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("message", "Record Updated Success");
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		}
+	}
+
 }
